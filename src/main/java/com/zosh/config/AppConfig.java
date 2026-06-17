@@ -26,6 +26,10 @@ public class AppConfig {
 
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(Authorize -> Authorize
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/auth/**"
+                        ).permitAll()
                 		.requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER","ADMIN")
                                 .requestMatchers("/api/**").authenticated()
                                 
@@ -49,7 +53,8 @@ public class AppConfig {
                 cfg.setAllowedOrigins(Arrays.asList(
                     "http://localhost:3000",
                     "https://zosh-food.vercel.app",
-                    "http://localhost:4200"
+                    "http://localhost:4200",
+                        "https://food-website-za27.onrender.com"
                 ));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
